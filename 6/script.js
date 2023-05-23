@@ -75,29 +75,48 @@ let getDistance = function (x1, y1, x2, y2) {
     return result;
 };
 
-let sirkel1 = new Circle(500, 800, 50, "black", "A", 10);
-let sirkel2 = new Circle(300, 300, 200, "black", "B", 0);
-sirkel1.draw(c);
-sirkel2.draw(c);
+var allCircle = [];
+let randomNumber = function (min, max) {
+    var result = Math.random() * (max - min) - min;
+    console.log(result);
+    return result;
+};
+for (let i = 0; i < 10; i++) {
+    var radius = 50;
+    let x_random = randomNumber(radius, window_width - radius);
+    let y_random = randomNumber(radius, window_height - radius);
+
+    let sirkel = new Circle(x_random, y_random, radius, "black", "A", 20);
+    // sirkel.draw();
+    allCircle.push(sirkel);
+}
+
+// let sirkel1 = new Circle(500, 500, 50, "black", "A", 10);
+// let sirkel2 = new Circle(300, 300, 200, "black", "B", 0);
+// sirkel1.draw(c);
+// sirkel2.draw(c);
 
 function updateCircle() {
     requestAnimationFrame(updateCircle);
     c.clearRect(0, 0, window_width, window_height);
-    sirkel1.update();
-    sirkel2.update();
+    allCircle.forEach((el) => {
+        el.update();
+    });
+    // sirkel1.update();
+    // sirkel2.update();
 
-    if (
-        getDistance(sirkel1.x, sirkel1.y, sirkel2.x, sirkel2.y) <
-        sirkel2.r + sirkel1.r
-    ) {
-        sirkel2.color = "red";
-    }
-    if (
-        getDistance(sirkel1.x, sirkel1.y, sirkel2.x, sirkel2.y) >=
-        sirkel2.r + sirkel1.r
-    ) {
-        sirkel2.color = "black";
-    }
+    // if (
+    //     getDistance(sirkel1.x, sirkel1.y, sirkel2.x, sirkel2.y) <
+    //     sirkel2.r + sirkel1.r
+    // ) {
+    //     sirkel2.color = "red";
+    // }
+    // if (
+    //     getDistance(sirkel1.x, sirkel1.y, sirkel2.x, sirkel2.y) >=
+    //     sirkel2.r + sirkel1.r
+    // ) {
+    //     sirkel2.color = "black";
+    // }
 }
 
 updateCircle();
